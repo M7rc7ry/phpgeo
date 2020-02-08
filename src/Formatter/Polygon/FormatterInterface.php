@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Polygon;
+namespace Phpgeo\Formatter\Polygon;
 
-use Location\Polygon;
+use Phpgeo\Polygon;
 
 /**
  * Polygon Formatter Interface

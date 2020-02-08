@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Polyline;
+namespace Phpgeo\Formatter\Polyline;
 
-use Location\Polyline;
+use Phpgeo\Polyline;
 
 /**
  * GeoJSON Polyline Formatter
@@ -28,9 +28,10 @@ class GeoJSON implements FormatterInterface
 
         return json_encode(
             [
-                'type'        => 'LineString',
+                'type' => 'LineString',
                 'coordinates' => $points,
-            ]
+            ],
+            JSON_THROW_ON_ERROR
         );
     }
 }

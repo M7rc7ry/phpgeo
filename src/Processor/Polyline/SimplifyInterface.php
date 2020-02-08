@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Processor\Polyline;
+namespace Phpgeo\Processor\Polyline;
 
-use Location\Polyline;
+use Phpgeo\Polyline;
 
 /**
  * Interface for simplifying a polyline

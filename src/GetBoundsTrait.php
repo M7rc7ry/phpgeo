@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
 /**
  * Trait GetBoundsTrait
  *
  * @package Location
  *
- * @property Coordinate[] $points
+ * @property Point[] $points
  */
 trait GetBoundsTrait
 {
     /**
-     * @return Coordinate[]
+     * @return Point[]
      */
     abstract public function getPoints(): array;
 
@@ -36,8 +36,8 @@ trait GetBoundsTrait
         }
 
         return new Bounds(
-            new Coordinate($latMax, $lngMin),
-            new Coordinate($latMin, $lngMax)
+            new Point($latMax, $lngMin),
+            new Point($latMin, $lngMax)
         );
     }
 }

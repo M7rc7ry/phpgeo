@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Location\Bearing;
+namespace Phpgeo\Bearing;
 
 use InvalidArgumentException;
-use Location\Coordinate;
+use Phpgeo\Point;
 
 /**
  * Calculation of bearing between two points using a
@@ -24,12 +24,12 @@ class BearingSpherical implements BearingInterface
      * This method calculates the initial bearing between the
      * two points.
      *
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      *
      * @return float Bearing Angle
      */
-    public function calculateBearing(Coordinate $point1, Coordinate $point2): float
+    public function calculateBearing(Point $point1, Point $point2): float
     {
         $lat1 = deg2rad($point1->getLat());
         $lat2 = deg2rad($point2->getLat());
@@ -51,12 +51,12 @@ class BearingSpherical implements BearingInterface
     /**
      * Calculates the final bearing between the two points.
      *
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      *
      * @return float
      */
-    public function calculateFinalBearing(Coordinate $point1, Coordinate $point2): float
+    public function calculateFinalBearing(Point $point1, Point $point2): float
     {
         $initialBearing = $this->calculateBearing($point2, $point1);
 
@@ -67,14 +67,14 @@ class BearingSpherical implements BearingInterface
      * Calculates a destination point for the given point, bearing angle,
      * and distance.
      *
-     * @param Coordinate $point
+     * @param Point $point
      * @param float $bearing the bearing angle between 0 and 360 degrees
      * @param float $distance the distance to the destination point in meters
      *
-     * @return Coordinate
+     * @return Point
      * @throws InvalidArgumentException
      */
-    public function calculateDestination(Coordinate $point, float $bearing, float $distance): Coordinate
+    public function calculateDestination(Point $point, float $bearing, float $distance): Point
     {
         $D = $distance / self::EARTH_RADIUS;
         $B = deg2rad($bearing);
@@ -84,6 +84,6 @@ class BearingSpherical implements BearingInterface
         $Φ = asin(sin($φ) * cos($D) + cos($φ) * sin($D) * cos($B));
         $Λ = $λ + atan2(sin($B) * sin($D) * cos($φ), cos($D) - sin($φ) * sin($φ));
 
-        return new Coordinate(rad2deg($Φ), rad2deg($Λ));
+        return new Point(rad2deg($Φ), rad2deg($Λ));
     }
 }

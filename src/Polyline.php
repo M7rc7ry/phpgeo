@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
-use Location\Distance\DistanceInterface;
-use Location\Exception\InvalidGeometryException;
-use Location\Formatter\Polyline\FormatterInterface;
+use Phpgeo\Distance\DistanceInterface;
+use Phpgeo\Exception\InvalidGeometryException;
+use Phpgeo\Formatter\Polyline\FormatterInterface;
 
 /**
  * Polyline Implementation
@@ -18,16 +18,16 @@ class Polyline implements GeometryInterface
     use GetBoundsTrait;
 
     /**
-     * @var Coordinate[]
+     * @var Point[]
      */
     protected $points = [];
 
     /**
-     * @param Coordinate $point
+     * @param Point $point
      *
      * @return void
      */
-    public function addPoint(Coordinate $point)
+    public function addPoint(Point $point)
     {
         $this->points[] = $point;
     }
@@ -37,12 +37,12 @@ class Polyline implements GeometryInterface
      * same point comparison can be provided. Default allowed distance
      * deviation is 0.001 meters (1 millimeter).
      *
-     * @param Coordinate $point
+     * @param Point $point
      * @param float $allowedDistance
      *
      * @return void
      */
-    public function addUniquePoint(Coordinate $point, float $allowedDistance = .001)
+    public function addUniquePoint(Point $point, float $allowedDistance = .001)
     {
         if ($this->containsPoint($point, $allowedDistance)) {
             return;
@@ -52,7 +52,7 @@ class Polyline implements GeometryInterface
     }
 
     /**
-     * @return Coordinate[]
+     * @return Point[]
      */
     public function getPoints(): array
     {
@@ -68,12 +68,12 @@ class Polyline implements GeometryInterface
     }
 
     /**
-     * @param Coordinate $point
+     * @param Point $point
      * @param float $allowedDistance
      *
      * @return bool
      */
-    public function containsPoint(Coordinate $point, float $allowedDistance = .001): bool
+    public function containsPoint(Point $point, float $allowedDistance = .001): bool
     {
         foreach ($this->points as $existingPoint) {
             if ($existingPoint->hasSameLocation($point, $allowedDistance)) {
@@ -159,11 +159,11 @@ class Polyline implements GeometryInterface
      * This currently only works for polylines which don't cross the dateline at
      * 180/-180 degrees longitude.
      *
-     * @return Coordinate
+     * @return Point
      *
      * @throws InvalidGeometryException when the polyline doesn't contain any points.
      */
-    public function getAveragePoint(): Coordinate
+    public function getAveragePoint(): Point
     {
         $latitude = 0.0;
         $longitude = 0.0;
@@ -174,7 +174,7 @@ class Polyline implements GeometryInterface
         }
 
         foreach ($this->points as $point) {
-            /* @var $point Coordinate */
+            /* @var $point Point */
             $latitude += $point->getLat();
             $longitude += $point->getLng();
         }
@@ -182,6 +182,6 @@ class Polyline implements GeometryInterface
         $latitude /= $numberOfPoints;
         $longitude /= $numberOfPoints;
 
-        return new Coordinate($latitude, $longitude);
+        return new Point($latitude, $longitude);
     }
 }

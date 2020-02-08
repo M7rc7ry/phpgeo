@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
-use Location\Distance\DistanceInterface;
-use Location\Formatter\Polygon\FormatterInterface;
+use Phpgeo\Distance\DistanceInterface;
+use Phpgeo\Formatter\Polygon\FormatterInterface;
 
 /**
  * Polygon Implementation
@@ -18,22 +18,22 @@ class Polygon implements GeometryInterface
     use GetBoundsTrait;
 
     /**
-     * @var Coordinate[]
+     * @var Point[]
      */
     protected $points = [];
 
     /**
-     * @param Coordinate $point
+     * @param Point $point
      *
      * @return void
      */
-    public function addPoint(Coordinate $point)
+    public function addPoint(Point $point)
     {
         $this->points[] = $point;
     }
 
     /**
-     * @return Coordinate[]
+     * @return Point[]
      */
     public function getPoints(): array
     {
@@ -50,7 +50,7 @@ class Polygon implements GeometryInterface
         $lats = [];
 
         foreach ($this->points as $point) {
-            /** @var Coordinate $point */
+            /** @var Point $point */
             $lats[] = $point->getLat();
         }
 
@@ -67,7 +67,7 @@ class Polygon implements GeometryInterface
         $lngs = [];
 
         foreach ($this->points as $point) {
-            /** @var Coordinate $point */
+            /** @var Point $point */
             $lngs[] = $point->getLng();
         }
 
@@ -126,7 +126,7 @@ class Polygon implements GeometryInterface
      *
      * @param GeometryInterface $geometry
      *
-     * @return boolean
+     * @return bool
      */
     public function containsGeometry(GeometryInterface $geometry): bool
     {
@@ -150,11 +150,11 @@ class Polygon implements GeometryInterface
      *
      * - if the polygons spans over the longitude boundaries at 180/-180 degrees
      *
-     * @param Coordinate $point
+     * @param Point $point
      *
      * @return bool
      */
-    public function contains(Coordinate $point): bool
+    public function contains(Point $point): bool
     {
         $numberOfPoints = $this->getNumberOfPoints();
         $polygonLats    = $this->getLats();
@@ -220,9 +220,9 @@ class Polygon implements GeometryInterface
         $segments       = $this->getSegments();
 
         foreach ($segments as $segment) {
-            /** @var Coordinate $point1 */
+            /** @var Point $point1 */
             $point1 = $segment->getPoint1();
-            /** @var Coordinate $point2 */
+            /** @var Point $point2 */
             $point2 = $segment->getPoint2();
 
             $x1 = deg2rad($point1->getLng() - $referencePoint->getLng()) * cos(deg2rad($point1->getLat()));

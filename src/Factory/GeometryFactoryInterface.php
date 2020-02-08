@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Factory;
+namespace Phpgeo\Factory;
 
-use Location\GeometryInterface;
+use Phpgeo\GeometryInterface;
 
 /**
  * Geometry Factory Interface

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Polyline;
+namespace Phpgeo\Formatter\Polyline;
 
-use Location\Coordinate;
-use Location\Polyline;
+use Phpgeo\Point;
+use Phpgeo\Polyline;
 use PHPUnit\Framework\TestCase;
 
 class GeoJSONTest extends TestCase
@@ -36,8 +36,8 @@ class GeoJSONTest extends TestCase
     public function testFormatDefault(): void
     {
         $polyline = new Polyline();
-        $polyline->addPoint(new Coordinate(52.5, 13.5));
-        $polyline->addPoint(new Coordinate(62.5, 14.5));
+        $polyline->addPoint(new Point(52.5, 13.5));
+        $polyline->addPoint(new Point(62.5, 14.5));
 
         $json = '{ "type" : "LineString" , "coordinates" : [ [ 13.5, 52.5 ], [ 14.5, 62.5 ] ] }';
 

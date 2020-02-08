@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Location\Utility;
+namespace Phpgeo\Utility;
 
-use Location\Coordinate;
-use Location\Line;
+use Phpgeo\Point;
+use Phpgeo\Line;
 
 /**
  * Calculate the perpendicular distance between a Line and a Point.
@@ -15,12 +15,12 @@ use Location\Line;
 class PerpendicularDistance
 {
     /**
-     * @param Coordinate $point
+     * @param Point $point
      * @param Line $line
      *
      * @return float
      */
-    public function getPerpendicularDistance(Coordinate $point, Line $line): float
+    public function getPerpendicularDistance(Point $point, Line $line): float
     {
         $ellipsoid = $point->getEllipsoid();
 

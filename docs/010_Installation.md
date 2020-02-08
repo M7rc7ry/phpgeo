@@ -2,7 +2,9 @@
 
 ## Requirements
 
-_phpgeo_ requires at least PHP 7.2.
+_phpgeo_ requires at least PHP 7.3.
+
+The 3.x releases require PHP >= 7.2 and gets feature updates until the end of 2020.
 
 The 2.x releases require PHP >= 7.0 but don't get feature updates any longer.
 

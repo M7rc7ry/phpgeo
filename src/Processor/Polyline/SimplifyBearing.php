@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Location\Processor\Polyline;
+namespace Phpgeo\Processor\Polyline;
 
-use Location\Bearing\BearingEllipsoidal;
-use Location\Polyline;
+use Phpgeo\Bearing\BearingEllipsoidal;
+use Phpgeo\Polyline;
 
 /**
  * Simplify Polyline.

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location\Bearing;
+namespace Phpgeo\Bearing;
 
 use InvalidArgumentException;
-use Location\Coordinate;
-use Location\Exception\NotConvergingException;
+use Phpgeo\Point;
+use Phpgeo\Exception\NotConvergingException;
 
 /**
  * Calculation of bearing between two points using a
@@ -25,12 +25,12 @@ class BearingEllipsoidal implements BearingInterface
      * This method calculates the initial bearing between the
      * two points.
      *
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      *
      * @return float Bearing Angle
      */
-    public function calculateBearing(Coordinate $point1, Coordinate $point2): float
+    public function calculateBearing(Point $point1, Point $point2): float
     {
         return $this->inverseVincenty($point1, $point2)->getBearingInitial();
     }
@@ -38,12 +38,12 @@ class BearingEllipsoidal implements BearingInterface
     /**
      * Calculates the final bearing between the two points.
      *
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      *
      * @return float
      */
-    public function calculateFinalBearing(Coordinate $point1, Coordinate $point2): float
+    public function calculateFinalBearing(Point $point1, Point $point2): float
     {
         return $this->inverseVincenty($point1, $point2)->getBearingFinal();
     }
@@ -52,13 +52,13 @@ class BearingEllipsoidal implements BearingInterface
      * Calculates a destination point for the given point, bearing angle,
      * and distance.
      *
-     * @param Coordinate $point
+     * @param Point $point
      * @param float $bearing the bearing angle between 0 and 360 degrees
      * @param float $distance the distance to the destination point in meters
      *
-     * @return Coordinate
+     * @return Point
      */
-    public function calculateDestination(Coordinate $point, float $bearing, float $distance): Coordinate
+    public function calculateDestination(Point $point, float $bearing, float $distance): Point
     {
         return $this->directVincenty($point, $bearing, $distance)->getDestination();
     }
@@ -68,7 +68,7 @@ class BearingEllipsoidal implements BearingInterface
      * The method expects a starting point point, the bearing angle,
      * and the distance to destination.
      *
-     * @param Coordinate $point
+     * @param Point $point
      * @param float $bearing
      * @param float $distance
      *
@@ -76,13 +76,13 @@ class BearingEllipsoidal implements BearingInterface
      *
      * @throws NotConvergingException
      */
-    public function calculateDestinationFinalBearing(Coordinate $point, float $bearing, float $distance): float
+    public function calculateDestinationFinalBearing(Point $point, float $bearing, float $distance): float
     {
         return $this->directVincenty($point, $bearing, $distance)->getBearingFinal();
     }
 
     /**
-     * @param Coordinate $point
+     * @param Point $point
      * @param float $bearing
      * @param float $distance
      *
@@ -90,7 +90,7 @@ class BearingEllipsoidal implements BearingInterface
      *
      * @throws NotConvergingException
      */
-    private function directVincenty(Coordinate $point, float $bearing, float $distance): DirectVincentyBearing
+    private function directVincenty(Point $point, float $bearing, float $distance): DirectVincentyBearing
     {
         $phi1 = deg2rad($point->getLat());
         $lambda1 = deg2rad($point->getLng());
@@ -153,20 +153,19 @@ class BearingEllipsoidal implements BearingInterface
         $alpha2 = fmod($alpha2 + 2 * M_PI, 2 * M_PI);
 
         return new DirectVincentyBearing(
-            new Coordinate(rad2deg($phi2), rad2deg($lambda2), $point->getEllipsoid()),
+            new Point(rad2deg($phi2), rad2deg($lambda2), $point->getEllipsoid()),
             rad2deg($alpha2)
         );
     }
 
     /**
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      *
      * @return InverseVincentyBearing
-     *
      * @throws NotConvergingException
      */
-    private function inverseVincenty(Coordinate $point1, Coordinate $point2): InverseVincentyBearing
+    private function inverseVincenty(Point $point1, Point $point2): InverseVincentyBearing
     {
         $φ1 = deg2rad($point1->getLat());
         $φ2 = deg2rad($point2->getLat());

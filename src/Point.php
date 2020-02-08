@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
 use InvalidArgumentException;
-use Location\Distance\DistanceInterface;
-use Location\Distance\Haversine;
-use Location\Formatter\Coordinate\FormatterInterface;
+use Phpgeo\Distance\DistanceInterface;
+use Phpgeo\Distance\Haversine;
+use Phpgeo\Formatter\Point\FormatterInterface;
 
 /**
- * Coordinate Implementation
+ * Point Implementation.
  *
  * @author Marcus Jaschen <mjaschen@gmail.com>
  */
-class Coordinate implements GeometryInterface
+class Point implements GeometryInterface
 {
     /**
      * @var float
@@ -81,7 +81,7 @@ class Coordinate implements GeometryInterface
     /**
      * Returns an array containing the point
      *
-     * @return Coordinate[]
+     * @return Point[]
      */
     public function getPoints(): array
     {
@@ -97,17 +97,17 @@ class Coordinate implements GeometryInterface
     }
 
     /**
-     * Calculates the distance between the given coordinate
-     * and this coordinate.
+     * Calculates the distance between the given point
+     * and this point.
      *
-     * @param Coordinate $coordinate
+     * @param Point $point
      * @param DistanceInterface $calculator instance of distance calculation class
      *
      * @return float
      */
-    public function getDistance(Coordinate $coordinate, DistanceInterface $calculator): float
+    public function getDistance(Point $point, DistanceInterface $calculator): float
     {
-        return $calculator->getDistance($this, $coordinate);
+        return $calculator->getDistance($this, $point);
     }
 
     /**
@@ -116,16 +116,16 @@ class Coordinate implements GeometryInterface
      * Uses the Haversine distance calculator for distance calculation as it's
      * precise enough for short-distance calculations.
      *
-     * @param Coordinate $coordinate
+     * @param Point $point
      * @param float $allowedDistance the default value is one millimeter.
      *
      * @return bool
      *
      * @see Haversine
      */
-    public function hasSameLocation(Coordinate $coordinate, float $allowedDistance = .001): bool
+    public function hasSameLocation(Point $point, float $allowedDistance = .001): bool
     {
-        return $this->getDistance($coordinate, new Haversine()) <= $allowedDistance;
+        return $this->getDistance($point, new Haversine()) <= $allowedDistance;
     }
 
     /**

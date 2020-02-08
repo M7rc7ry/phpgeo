@@ -7,13 +7,13 @@ You can format a polyline in different styles.
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Polyline;
-use Location\Formatter\Polyline\GeoJSON;
+use Phpgeo\Point;
+use Phpgeo\Polyline;
+use Phpgeo\Formatter\Polyline\GeoJSON;
 
 $polyline = new Polyline;
-$polyline->addPoint(new Coordinate(52.5, 13.5));
-$polyline->addPoint(new Coordinate(62.5, 14.5));
+$polyline->addPoint(new Point(52.5, 13.5));
+$polyline->addPoint(new Point(62.5, 14.5));
 
 $formatter = new GeoJSON;
 

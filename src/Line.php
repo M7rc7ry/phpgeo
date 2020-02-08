@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
-use Location\Bearing\BearingInterface;
-use Location\Distance\DistanceInterface;
-use Location\Utility\Cartesian;
+use Phpgeo\Bearing\BearingInterface;
+use Phpgeo\Distance\DistanceInterface;
+use Phpgeo\Utility\Cartesian;
 use RuntimeException;
 
 /**
@@ -19,57 +19,57 @@ class Line implements GeometryInterface
     use GetBoundsTrait;
 
     /**
-     * @var Coordinate
+     * @var Point
      */
     protected $point1;
 
     /**
-     * @var Coordinate
+     * @var Point
      */
     protected $point2;
 
     /**
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      */
-    public function __construct(Coordinate $point1, Coordinate $point2)
+    public function __construct(Point $point1, Point $point2)
     {
         $this->point1 = $point1;
         $this->point2 = $point2;
     }
 
     /**
-     * @param Coordinate $point1
+     * @param Point $point1
      *
      * @return void
      */
-    public function setPoint1(Coordinate $point1)
+    public function setPoint1(Point $point1)
     {
         $this->point1 = $point1;
     }
 
     /**
-     * @return Coordinate
+     * @return Point
      */
-    public function getPoint1(): Coordinate
+    public function getPoint1(): Point
     {
         return $this->point1;
     }
 
     /**
-     * @param Coordinate $point2
+     * @param Point $point2
      *
      * @return void
      */
-    public function setPoint2(Coordinate $point2)
+    public function setPoint2(Point $point2)
     {
         $this->point2 = $point2;
     }
 
     /**
-     * @return Coordinate
+     * @return Point
      */
-    public function getPoint2(): Coordinate
+    public function getPoint2(): Point
     {
         return $this->point2;
     }
@@ -77,7 +77,7 @@ class Line implements GeometryInterface
     /**
      * Returns an array containing the two points.
      *
-     * @return Coordinate[]
+     * @return Point[]
      */
     public function getPoints(): array
     {
@@ -86,7 +86,7 @@ class Line implements GeometryInterface
 
     /**
      * Calculates the length of the line (distance between the two
-     * coordinates).
+     * points).
      *
      * @param DistanceInterface $calculator instance of distance calculation class
      *
@@ -132,9 +132,9 @@ class Line implements GeometryInterface
      *
      * @see http://www.movable-type.co.uk/scripts/latlong.html#midpoint
      *
-     * @return Coordinate
+     * @return Point
      */
-    public function getMidpoint(): Coordinate
+    public function getMidpoint(): Point
     {
         $lat1 = deg2rad($this->point1->getLat());
         $lng1 = deg2rad($this->point1->getLng());
@@ -149,7 +149,7 @@ class Line implements GeometryInterface
         $latMid = atan2($C->getZ(), sqrt($C->getX() ** 2 + $C->getY() ** 2));
         $lngMid = $lng1 + atan2($C->getY(), $C->getX());
 
-        return new Coordinate(rad2deg($latMid), rad2deg($lngMid));
+        return new Point(rad2deg($latMid), rad2deg($lngMid));
     }
 
     /**
@@ -161,11 +161,11 @@ class Line implements GeometryInterface
      *
      * @param float $fraction 0.0 ... 1.0 (smaller or larger values work too)
      *
-     * @return Coordinate
+     * @return Point
      *
      * @throws RuntimeException
      */
-    public function getIntermediatePoint(float $fraction): Coordinate
+    public function getIntermediatePoint(float $fraction): Point
     {
         $lat1 = deg2rad($this->point1->getLat());
         $lng1 = deg2rad($this->point1->getLng());
@@ -194,6 +194,6 @@ class Line implements GeometryInterface
         $lat = atan2($z, sqrt($x ** 2 + $y ** 2));
         $lng = atan2($y, $x);
 
-        return new Coordinate(rad2deg($lat), rad2deg($lng));
+        return new Point(rad2deg($lat), rad2deg($lng));
     }
 }

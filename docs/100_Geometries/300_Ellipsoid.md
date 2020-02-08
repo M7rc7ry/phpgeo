@@ -25,7 +25,7 @@ specifing a name or by providing the three parameters _name,_ _a_, and _1/f_.
 ``` php
 <?php
 
-use Location\Ellipsoid;
+use Phpgeo\Ellipsoid;
 
 $ellipsoid = Ellipsoid::createDefault('WGS-84');
 

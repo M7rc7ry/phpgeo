@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
 interface GeometryInterface
 {
     /**
      * Returns an array containing all assigned points.
      *
-     * @return Coordinate[]
+     * @return Point[]
      */
     public function getPoints(): array;
 }

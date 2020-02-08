@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
-use Location\Distance\Vincenty;
+use Phpgeo\Distance\Vincenty;
 use PHPUnit\Framework\TestCase;
 
 class Issue18Test extends TestCase
@@ -14,8 +14,8 @@ class Issue18Test extends TestCase
         $vincenty = new Vincenty();
 
         $distance = $vincenty->getDistance(
-            new Coordinate(0, 0),
-            new Coordinate(0, 0.1)
+            new Point(0, 0),
+            new Point(0, 0.1)
         );
 
         $this->assertIsFloat($distance);

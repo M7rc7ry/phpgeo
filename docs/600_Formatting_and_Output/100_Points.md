@@ -1,18 +1,18 @@
 # Formatting Coordinates
 
-You can format a coordinate in different styles.
+You can format a coordinates pair in different styles.
 
 ## Decimal Degrees
 
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\DecimalDegrees;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\DecimalDegrees;
 
-$coordinate = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
+$point = new Point(19.820664, -155.468066); // Mauna Kea Summit
 
-echo $coordinate->format(new DecimalDegrees());
+echo $point->format(new DecimalDegrees());
 ```
 
 The code above produces the output below:
@@ -28,12 +28,12 @@ constructor argument, as well as the number of decimals (default value is
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\DecimalDegrees;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\DecimalDegrees;
 
-$coordinate = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
+$point = new Point(19.820664, -155.468066); // Mauna Kea Summit
 
-echo $coordinate->format(new DecimalDegrees(', ', 3));
+echo $point->format(new DecimalDegrees(', ', 3));
 ```
 
 The code above produces the output below:
@@ -47,20 +47,20 @@ The code above produces the output below:
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\DMS;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\DMS;
 
-$coordinate = new Coordinate(18.911306, -155.678268); // South Point, HI, USA
+$point = new Point(18.911306, -155.678268); // South Point, HI, USA
 
 $formatter = new DMS();
 
-echo $coordinate->format($formatter) . PHP_EOL;
+echo $point->format($formatter) . PHP_EOL;
 
 $formatter->setSeparator(', ')
     ->useCardinalLetters(true)
     ->setUnits(DMS::UNITS_ASCII);
 
-echo $coordinate->format($formatter) . PHP_EOL;
+echo $point->format($formatter) . PHP_EOL;
 ```
 
 The code above produces the output below:
@@ -77,20 +77,20 @@ This format is commonly used in the Geocaching community.
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\DecimalMinutes;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\DecimalMinutes;
 
-$coordinate = new Coordinate(43.62310, -70.20787); // Portland Head Light, ME, USA
+$point = new Point(43.62310, -70.20787); // Portland Head Light, ME, USA
 
 $formatter = new DecimalMinutes();
 
-echo $coordinate->format($formatter) . PHP_EOL;
+echo $point->format($formatter) . PHP_EOL;
 
 $formatter->setSeparator(', ')
     ->useCardinalLetters(true)
     ->setUnits(DecimalMinutes::UNITS_ASCII);
 
-echo $coordinate->format($formatter) . PHP_EOL;
+echo $point->format($formatter) . PHP_EOL;
 ```
 
 The code above produces the output below:
@@ -105,12 +105,12 @@ The code above produces the output below:
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\GeoJSON;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\GeoJSON;
 
-$coordinate = new Coordinate(18.911306, -155.678268); // South Point, HI, USA
+$point = new Point(18.911306, -155.678268); // South Point, HI, USA
 
-echo $coordinate->format(new GeoJSON());
+echo $point->format(new GeoJSON());
 ```
 
 The code above produces the output below:

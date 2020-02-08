@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Location\Bearing;
+namespace Phpgeo\Bearing;
 
-use Location\Coordinate;
+use Phpgeo\Point;
 use PHPUnit\Framework\TestCase;
 
 class BearingEllipsoidalTest extends TestCase
 {
     public function testIfCalculateBearingNorthernWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(10, 0);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(10, 0);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -21,8 +21,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateBearingSouthernWorksAsExpected(): void
     {
-        $point1 = new Coordinate(10, 0);
-        $point2 = new Coordinate(0, 0);
+        $point1 = new Point(10, 0);
+        $point2 = new Point(0, 0);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -31,8 +31,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateBearingEasternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(0, 10);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(0, 10);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -41,8 +41,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateBearingWesternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(0, - 10);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(0, - 10);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -51,8 +51,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateBearingNorthEasternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(0.1, 0.1);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(0.1, 0.1);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -61,8 +61,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateBearingNorthWesternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(0.1, -0.1);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(0.1, -0.1);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -71,8 +71,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateBearingSouthEasternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(- 0.1, 0.1);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(- 0.1, 0.1);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -81,8 +81,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateBearingSouthWesternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(- 0.1, - 0.1);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(- 0.1, - 0.1);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -91,8 +91,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateFinalBearingNorthernWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(10, 0);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(10, 0);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -101,8 +101,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateFinalBearingSouthernWorksAsExpected(): void
     {
-        $point1 = new Coordinate(10, 0);
-        $point2 = new Coordinate(0, 0);
+        $point1 = new Point(10, 0);
+        $point2 = new Point(0, 0);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -111,8 +111,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateFinalBearingEasternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(0, 10);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(0, 10);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -121,8 +121,8 @@ class BearingEllipsoidalTest extends TestCase
 
     public function testIfCalculateFinalBearingWesternWorksAsExpected(): void
     {
-        $point1 = new Coordinate(0, 0);
-        $point2 = new Coordinate(0, - 10);
+        $point1 = new Point(0, 0);
+        $point2 = new Point(0, - 10);
 
         $bearingCalculator = new BearingEllipsoidal();
 
@@ -133,7 +133,7 @@ class BearingEllipsoidalTest extends TestCase
     {
         $bearingCalculator = new BearingSpherical();
 
-        $point = new Coordinate(0, 0);
+        $point = new Point(0, 0);
         $destination = $bearingCalculator->calculateDestination($point, 90, 111195.0837);
 
         // 1 degree in longitude at the equator:
@@ -149,7 +149,7 @@ class BearingEllipsoidalTest extends TestCase
     {
         $bearingCalculator = new BearingSpherical();
 
-        $point = new Coordinate(0, 0);
+        $point = new Point(0, 0);
         $destination = $bearingCalculator->calculateDestination($point, 270, 111195.0837);
 
         // 1 degree in longitude at the equator:
@@ -163,7 +163,7 @@ class BearingEllipsoidalTest extends TestCase
     {
         $bearingCalculator = new BearingSpherical();
 
-        $point = new Coordinate(0, 0);
+        $point = new Point(0, 0);
         $destination = $bearingCalculator->calculateDestination($point, 0, 111195.0837);
 
         // 1 degree in longitude at the equator:
@@ -177,7 +177,7 @@ class BearingEllipsoidalTest extends TestCase
     {
         $bearingCalculator = new BearingSpherical();
 
-        $point = new Coordinate(0, 0);
+        $point = new Point(0, 0);
         $destination = $bearingCalculator->calculateDestination($point, 360, 111195.0837);
 
         // 1 degree in longitude at the equator:
@@ -191,7 +191,7 @@ class BearingEllipsoidalTest extends TestCase
     {
         $bearingCalculator = new BearingSpherical();
 
-        $point = new Coordinate(0, 0);
+        $point = new Point(0, 0);
         $destination = $bearingCalculator->calculateDestination($point, 180, 111195.0837);
 
         // 1 degree in longitude at the equator:

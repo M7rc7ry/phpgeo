@@ -11,11 +11,11 @@ The `Bounds` class has a method to calculate the center point of the bounds obje
 ``` php
 <?php
 
-use Location\Factory\BoundsFactory;
-use Location\Coordinate;
+use Phpgeo\Factory\BoundsFactory;
+use Phpgeo\Point;
 
-$bounds = BoundsFactory::expandFromCenterCoordinate(
-    new Coordinate(52, 13),
+$bounds = BoundsFactory::expandFromCenterPoint(
+    new Point(52, 13),
     1000,
     new BearingSpherical()
 );

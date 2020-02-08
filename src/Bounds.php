@@ -2,30 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
+
+use InvalidArgumentException;
 
 /**
- * Coordinate Bounds Class
+ * Bounds Class.
  *
  * @author Marcus Jaschen <mjaschen@gmail.com>
  */
 class Bounds
 {
     /**
-     * @var Coordinate
+     * @var Point
      */
     protected $northWest;
 
     /**
-     * @var Coordinate
+     * @var Point
      */
     protected $southEast;
 
     /**
-     * @param Coordinate $northWest
-     * @param Coordinate $southEast
+     * @param Point $northWest
+     * @param Point $southEast
      */
-    public function __construct(Coordinate $northWest, Coordinate $southEast)
+    public function __construct(Point $northWest, Point $southEast)
     {
         $this->northWest = $northWest;
         $this->southEast = $southEast;
@@ -34,9 +36,9 @@ class Bounds
     /**
      * Getter
      *
-     * @return Coordinate
+     * @return Point
      */
-    public function getNorthWest(): Coordinate
+    public function getNorthWest(): Point
     {
         return $this->northWest;
     }
@@ -44,9 +46,9 @@ class Bounds
     /**
      * Getter
      *
-     * @return Coordinate
+     * @return Point
      */
-    public function getSouthEast(): Coordinate
+    public function getSouthEast(): Point
     {
         return $this->southEast;
     }
@@ -85,16 +87,16 @@ class Bounds
 
     /**
      * Calculates the center of this bounds object and returns it as a
-     * Coordinate instance.
+     * Point instance.
      *
-     * @return Coordinate
-     * @throws \InvalidArgumentException
+     * @return Point
+     * @throws InvalidArgumentException
      */
-    public function getCenter(): Coordinate
+    public function getCenter(): Point
     {
         $centerLat = ($this->getNorth() + $this->getSouth()) / 2;
 
-        return new Coordinate($centerLat, $this->getCenterLng());
+        return new Point($centerLat, $this->getCenterLng());
     }
 
     /**

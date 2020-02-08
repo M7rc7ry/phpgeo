@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
-use Location\Coordinate;
-use Location\Bounds;
+use Phpgeo\Point;
+use Phpgeo\Bounds;
 use PHPUnit\Framework\TestCase;
 
 class BoundsTest extends TestCase
@@ -22,8 +22,8 @@ class BoundsTest extends TestCase
     protected function setUp(): void
     {
         $this->object = new Bounds(
-            new Coordinate(50, 10),
-            new Coordinate(30, 30)
+            new Point(50, 10),
+            new Point(30, 30)
         );
     }
 
@@ -37,27 +37,27 @@ class BoundsTest extends TestCase
     }
 
     /**
-     * @covers Location\Bounds::getNorthWest
+     * @covers Phpgeo\Bounds::getNorthWest
      */
     public function testGetNortWest(): void
     {
-        $c = new Coordinate(50, 10);
+        $c = new Point(50, 10);
 
         $this->assertEquals($c, $this->object->getNorthWest());
     }
 
     /**
-     * @covers Location\Bounds::getSouthEast
+     * @covers Phpgeo\Bounds::getSouthEast
      */
     public function testGetSouthEast(): void
     {
-        $c = new Coordinate(30, 30);
+        $c = new Point(30, 30);
 
         $this->assertEquals($c, $this->object->getSouthEast());
     }
 
     /**
-     * @covers Location\Bounds::getNorth
+     * @covers Phpgeo\Bounds::getNorth
      */
     public function testGetNorth(): void
     {
@@ -65,7 +65,7 @@ class BoundsTest extends TestCase
     }
 
     /**
-     * @covers Location\Bounds::getSouth
+     * @covers Phpgeo\Bounds::getSouth
      */
     public function testGetSouth(): void
     {
@@ -73,7 +73,7 @@ class BoundsTest extends TestCase
     }
 
     /**
-     * @covers Location\Bounds::getWest
+     * @covers Phpgeo\Bounds::getWest
      */
     public function testGetWest(): void
     {
@@ -81,7 +81,7 @@ class BoundsTest extends TestCase
     }
 
     /**
-     * @covers Location\Bounds::getEast
+     * @covers Phpgeo\Bounds::getEast
      */
     public function testGetEast(): void
     {
@@ -89,23 +89,23 @@ class BoundsTest extends TestCase
     }
 
     /**
-     * @covers Location\Bounds::getCenter
+     * @covers Phpgeo\Bounds::getCenter
      */
     public function testGetCenter(): void
     {
         $testBounds = [
-            ['nw' => new Coordinate(50, 10), 'se' => new Coordinate(30, 30), 'c' => new Coordinate(40, 20)],
-            ['nw' => new Coordinate(50, - 130), 'se' => new Coordinate(30, - 110), 'c' => new Coordinate(40, - 120)],
-            ['nw' => new Coordinate(10, - 10), 'se' => new Coordinate(- 10, 10), 'c' => new Coordinate(0, 0)],
+            ['nw' => new Point(50, 10), 'se' => new Point(30, 30), 'c' => new Point(40, 20)],
+            ['nw' => new Point(50, - 130), 'se' => new Point(30, - 110), 'c' => new Point(40, - 120)],
+            ['nw' => new Point(10, - 10), 'se' => new Point(- 10, 10), 'c' => new Point(0, 0)],
             [
-                'nw' => new Coordinate(- 80, - 130),
-                'se' => new Coordinate(- 90, - 110),
-                'c'  => new Coordinate(- 85, - 120)
+                'nw' => new Point(- 80, - 130),
+                'se' => new Point(- 90, - 110),
+                'c'  => new Point(- 85, - 120)
             ],
-            ['nw' => new Coordinate(80, - 130), 'se' => new Coordinate(90, - 110), 'c' => new Coordinate(85, - 120)],
-            ['nw' => new Coordinate(80, 110), 'se' => new Coordinate(90, 130), 'c' => new Coordinate(85, 120)],
-            ['nw' => new Coordinate(50, 170), 'se' => new Coordinate(30, - 160), 'c' => new Coordinate(40, - 175)],
-            ['nw' => new Coordinate(- 50, 150), 'se' => new Coordinate(- 70, - 170), 'c' => new Coordinate(- 60, 170)],
+            ['nw' => new Point(80, - 130), 'se' => new Point(90, - 110), 'c' => new Point(85, - 120)],
+            ['nw' => new Point(80, 110), 'se' => new Point(90, 130), 'c' => new Point(85, 120)],
+            ['nw' => new Point(50, 170), 'se' => new Point(30, - 160), 'c' => new Point(40, - 175)],
+            ['nw' => new Point(- 50, 150), 'se' => new Point(- 70, - 170), 'c' => new Point(- 60, 170)],
         ];
 
         foreach ($testBounds as $bounds) {

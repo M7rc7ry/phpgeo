@@ -42,11 +42,12 @@
         "email" : "mjaschen@gmail.com"
     },
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.3",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Location\\": "src/"
+            "Phpgeo\\": "src/"
         }
     },
     "require-dev": {

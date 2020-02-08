@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Polygon;
+namespace Phpgeo\Formatter\Polygon;
 
-use Location\Coordinate;
-use Location\Exception\InvalidPolygonException;
-use Location\Polygon;
+use Phpgeo\Point;
+use Phpgeo\Exception\InvalidPolygonException;
+use Phpgeo\Polygon;
 use PHPUnit\Framework\TestCase;
 
 class GeoJSONTest extends TestCase
@@ -37,10 +37,10 @@ class GeoJSONTest extends TestCase
     public function testFormatDefault(): void
     {
         $polygon = new Polygon();
-        $polygon->addPoint(new Coordinate(10, 20));
-        $polygon->addPoint(new Coordinate(20, 40));
-        $polygon->addPoint(new Coordinate(30, 40));
-        $polygon->addPoint(new Coordinate(30, 20));
+        $polygon->addPoint(new Point(10, 20));
+        $polygon->addPoint(new Point(20, 40));
+        $polygon->addPoint(new Point(30, 40));
+        $polygon->addPoint(new Point(30, 20));
 
         $json = '{ "type" : "Polygon" , "coordinates" : [ [ [ 20, 10 ], [ 40, 20 ], [ 40, 30 ], [ 20, 30] ] ] }';
 
@@ -52,8 +52,8 @@ class GeoJSONTest extends TestCase
         $this->expectException(InvalidPolygonException::class);
 
         $polygon = new Polygon();
-        $polygon->addPoint(new Coordinate(0, 0));
-        $polygon->addPoint(new Coordinate(10, 10));
+        $polygon->addPoint(new Point(0, 0));
+        $polygon->addPoint(new Point(10, 10));
 
         $this->formatter->format($polygon);
     }

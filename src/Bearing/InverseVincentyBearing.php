@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Location\Bearing;
+namespace Phpgeo\Bearing;
 
 /**
  * Value object for a "Direct Vincenty" bearing calculation result.

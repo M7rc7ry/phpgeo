@@ -9,15 +9,15 @@ Use the calculator object directly:
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Distance\Vincenty;
+use Phpgeo\Point;
+use Phpgeo\Distance\Vincenty;
 
-$coordinate1 = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
-$coordinate2 = new Coordinate(20.709722, -156.253333); // Haleakala Summit
+$point1 = new Point(19.820664, -155.468066); // Mauna Kea Summit
+$point2 = new Point(20.709722, -156.253333); // Haleakala Summit
 
 $calculator = new Vincenty();
 
-echo $calculator->getDistance($coordinate1, $coordinate2);
+echo $calculator->getDistance($point1, $point2);
 ```
 
 The code above will produce the output below:
@@ -26,19 +26,19 @@ The code above will produce the output below:
 128130.850
 ```
 
-or call the `getDistance()` method of a `Coordinate` instance by injecting
+or call the `getDistance()` method of a `Point` instance by injecting
 a calculator instance:
 
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Distance\Vincenty;
+use Phpgeo\Point;
+use Phpgeo\Distance\Vincenty;
 
-$coordinate1 = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
-$coordinate2 = new Coordinate(20.709722, -156.253333); // Haleakala Summit
+$point1 = new Point(19.820664, -155.468066); // Mauna Kea Summit
+$point2 = new Point(20.709722, -156.253333); // Haleakala Summit
 
-echo $coordinate1->getDistance($coordinate2, new Vincenty());
+echo $point1->getDistance($point2, new Vincenty());
 ```
 
 The code above will produce the output below:
@@ -56,13 +56,13 @@ is much faster than Vincenty's method but less precise:
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Distance\Haversine;
+use Phpgeo\Point;
+use Phpgeo\Distance\Haversine;
 
-$coordinate1 = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
-$coordinate2 = new Coordinate(20.709722, -156.253333); // Haleakala Summit
+$point1 = new Point(19.820664, -155.468066); // Mauna Kea Summit
+$point2 = new Point(20.709722, -156.253333); // Haleakala Summit
 
-echo $coordinate1->getDistance($coordinate2, new Haversine());
+echo $point1->getDistance($point2, new Haversine());
 ```
 
 The code above will produce the output below:
@@ -75,20 +75,20 @@ The code above will produce the output below:
 
 *phpgeo* has a polyline implementation which can be used to calculate the
 length of a GPS track or a route. A polyline consists of at least two points.
-Points are instances of the `Coordinate` class.
+Points are instances of the `Point` class.
 
 For more details about polylines/GPS tracks see the [`Polyline`](../Geometries/Polyline) section.
 
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Polyline;
-use Location\Distance\Vincenty;
+use Phpgeo\Point;
+use Phpgeo\Polyline;
+use Phpgeo\Distance\Vincenty;
 
 $track = new Polyline();
-$track->addPoint(new Coordinate(52.5, 13.5));
-$track->addPoint(new Coordinate(54.5, 12.5));
+$track->addPoint(new Point(52.5, 13.5));
+$track->addPoint(new Point(54.5, 12.5));
 
 echo $track->getLength(new Vincenty());
 ```
@@ -101,15 +101,15 @@ The result is given in meters.
 ``` php
 <?php
 
-use Location\Distance\Vincenty;
-use Location\Coordinate;
-use Location\Polygon;
+use Phpgeo\Distance\Vincenty;
+use Phpgeo\Point;
+use Phpgeo\Polygon;
 
 $polygon = new Polygon();
-$polygon->addPoint(new Coordinate(10, 10));
-$polygon->addPoint(new Coordinate(10, 20));
-$polygon->addPoint(new Coordinate(20, 20));
-$polygon->addPoint(new Coordinate(20, 10));
+$polygon->addPoint(new Point(10, 10));
+$polygon->addPoint(new Point(10, 20));
+$polygon->addPoint(new Point(20, 20));
+$polygon->addPoint(new Point(20, 10));
 
 echo $polygon->getPerimeter(new Vincenty());
 ```

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Polygon;
+namespace Phpgeo\Formatter\Polygon;
 
-use Location\Coordinate;
-use Location\Exception\InvalidPolygonException;
-use Location\Polygon;
+use Phpgeo\Point;
+use Phpgeo\Exception\InvalidPolygonException;
+use Phpgeo\Polygon;
 
 /**
  * GeoJSON Polygon Formatter
@@ -30,7 +30,7 @@ class GeoJSON implements FormatterInterface
 
         $points = [];
 
-        /** @var Coordinate $point */
+        /** @var Point $point */
         foreach ($polygon->getPoints() as $point) {
             $points[] = [$point->getLng(), $point->getLat()];
         }
@@ -39,7 +39,8 @@ class GeoJSON implements FormatterInterface
             [
                 'type' => 'Polygon',
                 'coordinates' => [$points],
-            ]
+            ],
+            JSON_THROW_ON_ERROR
         );
     }
 }

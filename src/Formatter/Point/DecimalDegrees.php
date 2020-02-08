@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Coordinate;
+namespace Phpgeo\Formatter\Point;
 
-use Location\Coordinate;
+use Phpgeo\Point;
 
 /**
- * Coordinate Formatter "Decimal Degrees"
+ * Coordinates Formatter "Decimal Degrees"
  *
  * @author Marcus Jaschen <mjaschen@gmail.com>
  */
@@ -34,17 +34,17 @@ class DecimalDegrees implements FormatterInterface
     }
 
     /**
-     * @param Coordinate $coordinate
+     * @param Point $point
      *
      * @return string
      */
-    public function format(Coordinate $coordinate): string
+    public function format(Point $point): string
     {
         return sprintf(
             '%.' . $this->digits . 'f%s%.' . $this->digits . 'f',
-            $coordinate->getLat(),
+            $point->getLat(),
             $this->separator,
-            $coordinate->getLng()
+            $point->getLng()
         );
     }
 

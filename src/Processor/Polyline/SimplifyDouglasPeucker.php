@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location\Processor\Polyline;
+namespace Phpgeo\Processor\Polyline;
 
-use Location\Line;
-use Location\Polyline;
-use Location\Utility\PerpendicularDistance;
+use Phpgeo\Line;
+use Phpgeo\Polyline;
+use Phpgeo\Utility\PerpendicularDistance;
 
 /**
  * /**

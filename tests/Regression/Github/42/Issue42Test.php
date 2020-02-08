@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
-use Location\Distance\Vincenty;
+use Phpgeo\Distance\Vincenty;
 use PHPUnit\Framework\TestCase;
 
 class Issue42Test extends TestCase
@@ -14,8 +14,8 @@ class Issue42Test extends TestCase
         $vincenty = new Vincenty();
 
         $distance = $vincenty->getDistance(
-            new Coordinate(45.306833, 5.887717),
-            new Coordinate(45.306833, 5.887733)
+            new Point(45.306833, 5.887717),
+            new Point(45.306833, 5.887733)
         );
 
         $this->assertEquals(1.255, $distance);

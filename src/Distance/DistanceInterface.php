@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Distance;
+namespace Phpgeo\Distance;
 
-use Location\Coordinate;
+use Phpgeo\Point;
 
 /**
  * Interface for Distance Calculator Classes
@@ -14,10 +14,10 @@ use Location\Coordinate;
 interface DistanceInterface
 {
     /**
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      *
-     * @return float distance between the two coordinates in meters
+     * @return float distance between the two points in meters
      */
-    public function getDistance(Coordinate $point1, Coordinate $point2): float;
+    public function getDistance(Point $point1, Point $point2): float;
 }

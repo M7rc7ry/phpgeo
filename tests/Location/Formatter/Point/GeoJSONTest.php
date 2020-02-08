@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Coordinate;
+namespace Phpgeo\Formatter\Point;
 
-use Location\Coordinate;
+use Phpgeo\Point;
 use PHPUnit\Framework\TestCase;
 
 class GeoJSONTest extends TestCase
@@ -34,19 +34,19 @@ class GeoJSONTest extends TestCase
 
     public function testFormatDefault(): void
     {
-        $coordinate = new Coordinate(52.5, 13.5);
+        $point = new Point(52.5, 13.5);
 
         $json = '{ "type" : "Point" , "coordinates" : [ 13.5, 52.5 ] }';
 
-        $this->assertJsonStringEqualsJsonString($json, $this->formatter->format($coordinate));
+        $this->assertJsonStringEqualsJsonString($json, $this->formatter->format($point));
     }
 
     public function testFormatPrecision(): void
     {
-        $coordinate = new Coordinate(52.123456789012345, 13.123456789012345);
+        $point = new Point(52.123456789012345, 13.123456789012345);
 
         $json = '{ "type" : "Point" , "coordinates" : [ 13.123456789012345, 52.123456789012345 ] }';
 
-        $this->assertJsonStringEqualsJsonString($json, $this->formatter->format($coordinate));
+        $this->assertJsonStringEqualsJsonString($json, $this->formatter->format($point));
     }
 }

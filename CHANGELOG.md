@@ -3,6 +3,17 @@
 All notable changes to `mjaschen/phpgeo` will be documented in this file.
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [4.0.0] - to be released
+
+### Changed
+
+- *phpgeo* requires PHP >= 7.3 now
+- **backwards compatibility breaking:** Renamed root namespace `Location` to `Phpgeo`
+- **backwards compatibility breaking:** Renamed namespace `Formatter\Coordinate` to `Formatter\Point`
+- **backwards compatibility breaking:** Renamed `Coordinate` class to `Point`
+- **backwards compatibility breaking:** Renamed `CoordinateFactory` class to `PointFactory`
+- **backwards compatibility breaking:** Renamed method `BoundsFactory::expandFromCenterCoordinate()` to `BoundsFactory::expandFromCenterPoint()`
+
 ## [3.0.0] - 2020-02-07
 
 ### Changed

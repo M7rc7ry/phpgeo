@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Bearing;
+namespace Phpgeo\Bearing;
 
-use Location\Coordinate;
+use Phpgeo\Point;
 
 /**
  * Value object for a "Direct Vincenty" bearing calculation result.
@@ -14,7 +14,7 @@ use Location\Coordinate;
 class DirectVincentyBearing
 {
     /**
-     * @var Coordinate
+     * @var Point
      */
     private $destination;
 
@@ -26,19 +26,19 @@ class DirectVincentyBearing
     /**
      * Bearing constructor.
      *
-     * @param Coordinate $destination
+     * @param Point $destination
      * @param float $bearingFinal
      */
-    public function __construct(Coordinate $destination, float $bearingFinal)
+    public function __construct(Point $destination, float $bearingFinal)
     {
         $this->destination  = $destination;
         $this->bearingFinal = $bearingFinal;
     }
 
     /**
-     * @return Coordinate
+     * @return Point
      */
-    public function getDestination(): Coordinate
+    public function getDestination(): Point
     {
         return $this->destination;
     }

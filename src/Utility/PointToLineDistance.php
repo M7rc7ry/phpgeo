@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location\Utility;
+namespace Phpgeo\Utility;
 
-use Location\Coordinate;
-use Location\Distance\DistanceInterface;
-use Location\Line;
+use Phpgeo\Point;
+use Phpgeo\Distance\DistanceInterface;
+use Phpgeo\Line;
 
 /**
  * Calculate the distance between a Line and a Point.
@@ -30,12 +30,12 @@ class PointToLineDistance
     }
 
     /**
-     * @param Coordinate $point
+     * @param Point $point
      * @param Line $line
      *
      * @return float
      */
-    public function getDistance(Coordinate $point, Line $line): float
+    public function getDistance(Point $point, Line $line): float
     {
         if ($line->getPoint1()->hasSameLocation($line->getPoint2())) {
             return $this->distanceCalculator->getDistance($point, $line->getPoint1());

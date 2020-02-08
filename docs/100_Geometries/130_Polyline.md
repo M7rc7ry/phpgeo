@@ -3,7 +3,7 @@
 [TOC]
 
 A polyline consists of an ordered list of locations, i. e. instances of
-the `Coordinate` class.
+the `Point` class.
 
 ## Create a polyline
 
@@ -12,13 +12,13 @@ To create a polyline, just instantiate the class and add points:
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Polyline;
+use Phpgeo\Point;
+use Phpgeo\Polyline;
 
 $polyline = new Polyline();
-$polyline->addPoint(new Coordinate(52.5, 13.5));
-$polyline->addPoint(new Coordinate(54.5, 12.5));
-$polyline->addPoint(new Coordinate(55.5, 14.5));
+$polyline->addPoint(new Point(52.5, 13.5));
+$polyline->addPoint(new Point(54.5, 12.5));
+$polyline->addPoint(new Point(55.5, 14.5));
 ?>
 ```
 
@@ -34,13 +34,13 @@ array of `Line` instances.
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Polyline;
+use Phpgeo\Point;
+use Phpgeo\Polyline;
 
 $track = new Polyline();
-$track->addPoint(new Coordinate(52.5, 13.5));
-$track->addPoint(new Coordinate(54.5, 12.5));
-$track->addPoint(new Coordinate(55.5, 14.5));
+$track->addPoint(new Point(52.5, 13.5));
+$track->addPoint(new Point(54.5, 12.5));
+$track->addPoint(new Point(55.5, 14.5));
 
 foreach ($track->getSegments() as $segment) {
     printf(
@@ -75,12 +75,12 @@ original polyline stays unchanged:
 ``` php
 <?php
 
-use Location\Coordinate;
-use Location\Polyline;
+use Phpgeo\Point;
+use Phpgeo\Polyline;
 
 $track = new Polyline();
-$track->addPoint(new Coordinate(52.5, 13.5));
-$track->addPoint(new Coordinate(54.5, 12.5));
+$track->addPoint(new Point(52.5, 13.5));
+$track->addPoint(new Point(54.5, 12.5));
 
 $reversed = $track->getReverse();
 
@@ -90,15 +90,15 @@ print_r($reversed);
 The code above will produce the output below:
 
 ``` plaintext
-Location\Polyline Object
+Phpgeo\Polyline Object
 (
     [points:protected] => Array
         (
-            [0] => Location\Coordinate Object
+            [0] => Phpgeo\Point Object
                 (
                     [lat:protected] => 54.5
                     [lng:protected] => 12.5
-                    [ellipsoid:protected] => Location\Ellipsoid Object
+                    [ellipsoid:protected] => Phpgeo\Ellipsoid Object
                         (
                             [name:protected] => WGS-84
                             [a:protected] => 6378137
@@ -107,11 +107,11 @@ Location\Polyline Object
 
                 )
 
-            [1] => Location\Coordinate Object
+            [1] => Phpgeo\Point Object
                 (
                     [lat:protected] => 52.5
                     [lng:protected] => 13.5
-                    [ellipsoid:protected] => Location\Ellipsoid Object
+                    [ellipsoid:protected] => Phpgeo\Ellipsoid Object
                         (
                             [name:protected] => WGS-84
                             [a:protected] => 6378137

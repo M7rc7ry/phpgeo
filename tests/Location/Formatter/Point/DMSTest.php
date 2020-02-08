@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Coordinate;
+namespace Phpgeo\Formatter\Point;
 
 use InvalidArgumentException;
-use Location\Coordinate;
+use Phpgeo\Point;
 use PHPUnit\Framework\TestCase;
 
 class DMSTest extends TestCase
@@ -53,44 +53,44 @@ class DMSTest extends TestCase
 
     public function testFormatDefaultSeparator(): void
     {
-        $coordinate = new Coordinate(52.5, 13.5);
+        $point = new Point(52.5, 13.5);
 
-        $this->assertEquals('52° 30′ 00″ 013° 30′ 00″', $this->formatter->format($coordinate));
+        $this->assertEquals('52° 30′ 00″ 013° 30′ 00″', $this->formatter->format($point));
     }
 
     public function testFormatCustomSeparator(): void
     {
-        $coordinate = new Coordinate(18.911306, - 155.678268);
+        $point = new Point(18.911306, - 155.678268);
 
         $this->formatter->setSeparator(', ');
 
-        $this->assertEquals('18° 54′ 41″, -155° 40′ 42″', $this->formatter->format($coordinate));
+        $this->assertEquals('18° 54′ 41″, -155° 40′ 42″', $this->formatter->format($point));
     }
 
     public function testFormatCardinalLetters(): void
     {
-        $coordinate = new Coordinate(18.911306, - 155.678268);
+        $point = new Point(18.911306, - 155.678268);
 
         $this->formatter->setSeparator(', ')->useCardinalLetters(true);
 
-        $this->assertEquals('18° 54′ 41″ N, 155° 40′ 42″ W', $this->formatter->format($coordinate));
+        $this->assertEquals('18° 54′ 41″ N, 155° 40′ 42″ W', $this->formatter->format($point));
     }
 
     public function testFormatBothNegative(): void
     {
-        $coordinate = new Coordinate(- 18.911306, - 155.678268);
+        $point = new Point(- 18.911306, - 155.678268);
 
         $this->formatter->setSeparator(', ');
 
-        $this->assertEquals('-18° 54′ 41″, -155° 40′ 42″', $this->formatter->format($coordinate));
+        $this->assertEquals('-18° 54′ 41″, -155° 40′ 42″', $this->formatter->format($point));
     }
 
     public function testFormatASCIIUnits(): void
     {
-        $coordinate = new Coordinate(- 18.911306, - 155.678268);
+        $point = new Point(- 18.911306, - 155.678268);
 
         $this->formatter->setSeparator(', ')->setUnits(DMS::UNITS_ASCII);
 
-        $this->assertEquals("-18° 54' 41\", -155° 40' 42\"", $this->formatter->format($coordinate));
+        $this->assertEquals("-18° 54' 41\", -155° 40' 42\"", $this->formatter->format($point));
     }
 }

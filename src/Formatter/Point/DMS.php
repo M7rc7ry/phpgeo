@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Coordinate;
+namespace Phpgeo\Formatter\Point;
 
 use InvalidArgumentException;
-use Location\Coordinate;
+use Phpgeo\Point;
 
 /**
- * Coordinate Formatter "DecimalMinutes"
+ * Coordinates Formatter "DMS"
  *
  * @author Marcus Jaschen <mjaschen@gmail.com>
  */
-class DecimalMinutes implements FormatterInterface
+class DMS implements FormatterInterface
 {
     public const UNITS_UTF8  = 'UTF-8';
     public const UNITS_ASCII = 'ASCII';
@@ -37,37 +37,30 @@ class DecimalMinutes implements FormatterInterface
     protected $unitType;
 
     /**
-     * @var int
-     */
-    protected $digits = 3;
-
-    /**
-     * @var string
-     */
-    protected $decimalPoint = '.';
-
-    /**
      * @var array
      */
     protected $units = [
         'UTF-8' => [
             'deg' => '°',
             'min' => '′',
+            'sec' => '″',
         ],
         'ASCII' => [
             'deg' => '°',
             'min' => '\'',
+            'sec' => '"',
         ],
     ];
 
     /**
      * @param string $separator
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(string $separator = ' ')
     {
         $this->separator          = $separator;
         $this->useCardinalLetters = false;
-
         $this->setUnits(static::UNITS_UTF8);
     }
 
@@ -76,9 +69,9 @@ class DecimalMinutes implements FormatterInterface
      *
      * @param string $separator
      *
-     * @return DecimalMinutes
+     * @return DMS
      */
-    public function setSeparator(string $separator): DecimalMinutes
+    public function setSeparator(string $separator): DMS
     {
         $this->separator = $separator;
 
@@ -88,9 +81,9 @@ class DecimalMinutes implements FormatterInterface
     /**
      * @param bool $value
      *
-     * @return DecimalMinutes
+     * @return DMS
      */
-    public function useCardinalLetters(bool $value): DecimalMinutes
+    public function useCardinalLetters(bool $value): DMS
     {
         $this->useCardinalLetters = $value;
 
@@ -100,10 +93,10 @@ class DecimalMinutes implements FormatterInterface
     /**
      * @param string $type
      *
-     * @return DecimalMinutes
-     * @throws \InvalidArgumentException
+     * @return DMS
+     * @throws InvalidArgumentException
      */
-    public function setUnits(string $type): DecimalMinutes
+    public function setUnits(string $type): DMS
     {
         if (! array_key_exists($type, $this->units)) {
             throw new InvalidArgumentException('Invalid unit type');
@@ -123,65 +116,49 @@ class DecimalMinutes implements FormatterInterface
     }
 
     /**
-     * @param int $digits
-     *
-     * @return DecimalMinutes
-     */
-    public function setDigits(int $digits): DecimalMinutes
-    {
-        $this->digits = $digits;
-
-        return $this;
-    }
-
-    /**
-     * @param string $decimalPoint
-     *
-     * @return DecimalMinutes
-     */
-    public function setDecimalPoint(string $decimalPoint): DecimalMinutes
-    {
-        $this->decimalPoint = $decimalPoint;
-
-        return $this;
-    }
-
-    /**
-     * @param Coordinate $coordinate
+     * @param Point $point
      *
      * @return string
      */
-    public function format(Coordinate $coordinate): string
+    public function format(Point $point): string
     {
-        $lat = $coordinate->getLat();
-        $lng = $coordinate->getLng();
+        $lat = $point->getLat();
+        $lng = $point->getLng();
 
         $latValue   = abs($lat);
         $latDegrees = (int)$latValue;
 
         $latMinutesDecimal = $latValue - $latDegrees;
-        $latMinutes        = 60 * $latMinutesDecimal;
+        $latMinutes        = (int)(60 * $latMinutesDecimal);
+
+        $latSeconds = 60 * (60 * $latMinutesDecimal - $latMinutes);
 
         $lngValue   = abs($lng);
         $lngDegrees = (int)$lngValue;
 
         $lngMinutesDecimal = $lngValue - $lngDegrees;
-        $lngMinutes        = 60 * $lngMinutesDecimal;
+        $lngMinutes        = (int)(60 * $lngMinutesDecimal);
+
+        $lngSeconds = 60 * (60 * $lngMinutesDecimal - $lngMinutes);
 
         return sprintf(
-            '%s%02d%s %s%s%s%s%s%03d%s %s%s%s',
+            '%s%02d%s %02d%s %02d%s%s%s%s%03d%s %02d%s %02d%s%s',
             $this->getLatPrefix($lat),
             abs($latDegrees),
             $this->units[$this->unitType]['deg'],
-            number_format($latMinutes, $this->digits, $this->decimalPoint, $this->decimalPoint),
+            $latMinutes,
             $this->units[$this->unitType]['min'],
+            round($latSeconds, 0),
+            $this->units[$this->unitType]['sec'],
             $this->getLatSuffix($lat),
             $this->separator,
             $this->getLngPrefix($lng),
             abs($lngDegrees),
             $this->units[$this->unitType]['deg'],
-            number_format($lngMinutes, $this->digits, $this->decimalPoint, $this->decimalPoint),
+            $lngMinutes,
             $this->units[$this->unitType]['min'],
+            round($lngSeconds, 0),
+            $this->units[$this->unitType]['sec'],
             $this->getLngSuffix($lng)
         );
     }

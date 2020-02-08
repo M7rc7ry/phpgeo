@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Location\Utility;
+namespace Phpgeo\Utility;
 
 class Cartesian
 {

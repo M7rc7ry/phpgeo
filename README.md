@@ -90,15 +90,15 @@ Use the calculator object directly:
 ```php
 <?php
 
-use Location\Coordinate;
-use Location\Distance\Vincenty;
+use Phpgeo\Point;
+use Phpgeo\Distance\Vincenty;
 
-$coordinate1 = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
-$coordinate2 = new Coordinate(20.709722, -156.253333); // Haleakala Summit
+$point1 = new Point(19.820664, -155.468066); // Mauna Kea Summit
+$point2 = new Point(20.709722, -156.253333); // Haleakala Summit
 
 $calculator = new Vincenty();
 
-echo $calculator->getDistance($coordinate1, $coordinate2); // returns 128130.850 (meters; ≈128 kilometers)
+echo $calculator->getDistance($point1, $point2); // returns 128130.850 (meters; ≈128 kilometers)
 ```
 
 or call the `getDistance()` method of a Coordinate object by injecting a calculator object:
@@ -106,13 +106,13 @@ or call the `getDistance()` method of a Coordinate object by injecting a calcula
 ```php
 <?php
 
-use Location\Coordinate;
-use Location\Distance\Vincenty;
+use Phpgeo\Point;
+use Phpgeo\Distance\Vincenty;
 
-$coordinate1 = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
-$coordinate2 = new Coordinate(20.709722, -156.253333); // Haleakala Summit
+$point1 = new Point(19.820664, -155.468066); // Mauna Kea Summit
+$point2 = new Point(20.709722, -156.253333); // Haleakala Summit
 
-echo $coordinate1->getDistance($coordinate2, new Vincenty()); // returns 128130.850 (meters; ≈128 kilometers)
+echo $point1->getDistance($point2, new Vincenty()); // returns 128130.850 (meters; ≈128 kilometers)
 ```
 
 ### Simplifying a polyline
@@ -122,14 +122,14 @@ Polylines can be simplified to save storage space or bandwidth. Simplification i
 ```php
 <?php
 
-use Location\Coordinate;
-use Location\Polyline;
-use Location\Distance\Vincenty;
+use Phpgeo\Point;
+use Phpgeo\Polyline;
+use Phpgeo\Distance\Vincenty;
 
 $polyline = new Polyline();
-$polyline->addPoint(new Coordinate(10.0, 10.0));
-$polyline->addPoint(new Coordinate(20.0, 20.0));
-$polyline->addPoint(new Coordinate(30.0, 10.0));
+$polyline->addPoint(new Point(10.0, 10.0));
+$polyline->addPoint(new Point(20.0, 20.0));
+$polyline->addPoint(new Point(30.0, 10.0));
 
 $processor = new Simplify($polyline);
 
@@ -145,25 +145,25 @@ $simplified = $processor->simplify(1500000);
 ### Polygon contains a point (e.g. "GPS geofence")
 
 phpgeo has a polygon implementation which can be used to determinate if a point is contained in it or not.
-A polygon consists of at least three points. Points are instances of the `Coordinate` class.
+A polygon consists of at least three points. Points are instances of the `Point` class.
 
 **Warning:** The calculation gives wrong results if the polygons has points on both sides of the 180/-180 degrees meridian.
 
 ```php
 <?php
 
-use Location\Coordinate;
-use Location\Polygon;
+use Phpgeo\Point;
+use Phpgeo\Polygon;
 
 $geofence = new Polygon();
 
-$geofence->addPoint(new Coordinate(-12.085870,-77.016261));
-$geofence->addPoint(new Coordinate(-12.086373,-77.033813));
-$geofence->addPoint(new Coordinate(-12.102823,-77.030938));
-$geofence->addPoint(new Coordinate(-12.098669,-77.006476));
+$geofence->addPoint(new Point(-12.085870,-77.016261));
+$geofence->addPoint(new Point(-12.086373,-77.033813));
+$geofence->addPoint(new Point(-12.102823,-77.030938));
+$geofence->addPoint(new Point(-12.098669,-77.006476));
 
-$outsidePoint = new Coordinate(-12.075452, -76.985079);
-$insidePoint = new Coordinate(-12.092542, -77.021540);
+$outsidePoint = new Point(-12.075452, -76.985079);
+$insidePoint = new Point(-12.092542, -77.021540);
 
 var_dump($geofence->contains($outsidePoint)); // returns bool(false) the point is outside the polygon
 var_dump($geofence->contains($insidePoint)); // returns bool(true) the point is inside the polygon
@@ -178,12 +178,12 @@ You can format a coordinate in different styles.
 ```php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\DecimalDegrees;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\DecimalDegrees;
 
-$coordinate = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
+$point = new Point(19.820664, -155.468066); // Mauna Kea Summit
 
-echo $coordinate->format(new DecimalDegrees());
+echo $point->format(new DecimalDegrees());
 ```
 
 #### Degrees/Minutes/Seconds (DMS)
@@ -191,20 +191,20 @@ echo $coordinate->format(new DecimalDegrees());
 ```php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\DMS;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\DMS;
 
-$coordinate = new Coordinate(18.911306, -155.678268); // South Point, HI, USA
+$point = new Point(18.911306, -155.678268); // South Point, HI, USA
 
 $formatter = new DMS();
 
-echo $coordinate->format($formatter); // 18° 54′ 41″ -155° 40′ 42″
+echo $point->format($formatter); // 18° 54′ 41″ -155° 40′ 42″
 
 $formatter->setSeparator(", ")
     ->useCardinalLetters(true)
     ->setUnits(DMS::UNITS_ASCII);
 
-echo $coordinate->format($formatter); // 18° 54' 41" N, 155° 40' 42" W
+echo $point->format($formatter); // 18° 54' 41" N, 155° 40' 42" W
 ```
 
 #### GeoJSON
@@ -212,12 +212,12 @@ echo $coordinate->format($formatter); // 18° 54' 41" N, 155° 40' 42" W
 ```php
 <?php
 
-use Location\Coordinate;
-use Location\Formatter\Coordinate\GeoJSON;
+use Phpgeo\Point;
+use Phpgeo\Formatter\Point\GeoJSON;
 
-$coordinate = new Coordinate(18.911306, -155.678268); // South Point, HI, USA
+$point = new Point(18.911306, -155.678268); // South Point, HI, USA
 
-echo $coordinate->format(new GeoJSON()); // { "type" : "point" , "coordinates" : [ -155.678268, 18.911306 ] }
+echo $point->format(new GeoJSON()); // { "type" : "point" , "coordinates" : [ -155.678268, 18.911306 ] }
 ```
 
 ## Development

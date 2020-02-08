@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Location\Distance;
+namespace Phpgeo\Distance;
 
-use Location\Coordinate;
-use Location\Exception\NotConvergingException;
-use Location\Exception\NotMatchingEllipsoidException;
+use Phpgeo\Point;
+use Phpgeo\Exception\NotConvergingException;
+use Phpgeo\Exception\NotMatchingEllipsoidException;
 
 /**
  * Implementation of distance calculation with Vincenty Method
@@ -18,18 +18,18 @@ use Location\Exception\NotMatchingEllipsoidException;
 class Vincenty implements DistanceInterface
 {
     /**
-     * @param Coordinate $point1
-     * @param Coordinate $point2
+     * @param Point $point1
+     * @param Point $point2
      *
      * @throws NotMatchingEllipsoidException
      * @throws NotConvergingException
      *
      * @return float
      */
-    public function getDistance(Coordinate $point1, Coordinate $point2): float
+    public function getDistance(Point $point1, Point $point2): float
     {
         if ($point1->getEllipsoid()->getName() !== $point2->getEllipsoid()->getName()) {
-            throw new NotMatchingEllipsoidException('The ellipsoids for both coordinates must match');
+            throw new NotMatchingEllipsoidException('The ellipsoids for both points must match');
         }
 
         $lat1 = deg2rad($point1->getLat());

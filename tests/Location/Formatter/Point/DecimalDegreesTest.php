@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Coordinate;
+namespace Phpgeo\Formatter\Point;
 
-use Location\Coordinate;
+use Phpgeo\Point;
 use PHPUnit\Framework\TestCase;
 
 class DecimalDegreesTest extends TestCase
@@ -29,29 +29,29 @@ class DecimalDegreesTest extends TestCase
 
     public function testFormatDefaultSeparator(): void
     {
-        $coordinate = new Coordinate(52.5, 13.5);
+        $point = new Point(52.5, 13.5);
 
         $formatter = new DecimalDegrees();
 
-        $this->assertEquals('52.50000 13.50000', $formatter->format($coordinate));
+        $this->assertEquals('52.50000 13.50000', $formatter->format($point));
     }
 
     public function testFormatCustomSeparator(): void
     {
-        $coordinate = new Coordinate(52.5, 13.5);
+        $point = new Point(52.5, 13.5);
 
         $formatter = new DecimalDegrees(', ');
 
-        $this->assertEquals('52.50000, 13.50000', $formatter->format($coordinate));
+        $this->assertEquals('52.50000, 13.50000', $formatter->format($point));
     }
 
     public function testIfSetSeparatorWorksAsExpected(): void
     {
-        $coordinate = new Coordinate(52.5, 13.5);
+        $point = new Point(52.5, 13.5);
 
         $formatter = new DecimalDegrees();
         $formatter->setSeparator('/');
 
-        $this->assertEquals('52.50000/13.50000', $formatter->format($coordinate));
+        $this->assertEquals('52.50000/13.50000', $formatter->format($point));
     }
 }

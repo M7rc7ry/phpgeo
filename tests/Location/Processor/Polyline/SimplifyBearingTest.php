@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location;
+namespace Phpgeo;
 
-use Location\Processor\Polyline\SimplifyBearing;
+use Phpgeo\Processor\Polyline\SimplifyBearing;
 use PHPUnit\Framework\TestCase;
 
 class SimplifyBearingTest extends TestCase
@@ -12,9 +12,9 @@ class SimplifyBearingTest extends TestCase
     public function testSimplifyThreePointsToTwoPoints(): void
     {
         $polyline = new Polyline();
-        $polyline->addPoint(new Coordinate(10.0, 10.0));
-        $polyline->addPoint(new Coordinate(20.0, 20.0));
-        $polyline->addPoint(new Coordinate(30.0, 10.0));
+        $polyline->addPoint(new Point(10.0, 10.0));
+        $polyline->addPoint(new Point(20.0, 20.0));
+        $polyline->addPoint(new Point(30.0, 10.0));
 
         $processor = new SimplifyBearing(85);
 
@@ -25,14 +25,14 @@ class SimplifyBearingTest extends TestCase
         $segments = $simplified->getSegments();
 
         $this->assertEquals(1, count($segments));
-        $this->assertEquals(new Line(new Coordinate(10.0, 10.0), new Coordinate(30.0, 10.0)), $segments[0]);
+        $this->assertEquals(new Line(new Point(10.0, 10.0), new Point(30.0, 10.0)), $segments[0]);
     }
 
     public function testSimplifyTwoPointsImpossible(): void
     {
         $polyline = new Polyline();
-        $polyline->addPoint(new Coordinate(10.0, 10.0));
-        $polyline->addPoint(new Coordinate(20.0, 20.0));
+        $polyline->addPoint(new Point(10.0, 10.0));
+        $polyline->addPoint(new Point(20.0, 20.0));
 
         $processor = new SimplifyBearing(10);
 

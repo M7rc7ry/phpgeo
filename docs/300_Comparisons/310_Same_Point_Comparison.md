@@ -5,19 +5,19 @@ It's possible to check if two points describe the same location – and optional
 ``` php
 <?php
 
-use Location\Coordinate;
+use Phpgeo\Point;
 
-$coordinate1 = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
-$coordinate2 = new Coordinate(20.709722, -156.253333); // Haleakala Summit
+$point1 = new Point(19.820664, -155.468066); // Mauna Kea Summit
+$point2 = new Point(20.709722, -156.253333); // Haleakala Summit
 
-echo $coordinate1->hasSameLocation($coordinate2)
+echo $point1->hasSameLocation($point2)
     ? 'Mauna Kea and Haleakala share the same location.'
     : 'Mauna Kea and Haleakala have different locations.';
 
-$coordinate1 = new Coordinate(19.820664, -155.468066); // Mauna Kea Summit
-$coordinate2 = new Coordinate(19.82365, -155.46905); // Gemini North Telescope
+$point1 = new Point(19.820664, -155.468066); // Mauna Kea Summit
+$point2 = new Point(19.82365, -155.46905); // Gemini North Telescope
 
-echo $coordinate1->hasSameLocation($coordinate2, 1000)
+echo $point1->hasSameLocation($point2, 1000)
     ? 'Mauna Kea and the Gemini North Telescope are located within the same 1 km-radius.'
     : 'Mauna Kea and the Gemini North Telescope are located more than 1 km apart.';
 ```

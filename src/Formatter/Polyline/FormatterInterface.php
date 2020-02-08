@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Location\Formatter\Polyline;
+namespace Phpgeo\Formatter\Polyline;
 
-use Location\Polyline;
+use Phpgeo\Polyline;
 
 /**
  * Polyline Formatter Interface
